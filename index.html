@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<head>
+  <title>move fast and break things</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="phrase" aria-live="polite" aria-atomic="true">
+    <span id="move-fast" class="clickableWord" role="button" tabindex="0">Move fast and break things</span>
+  </div>
+  <script>
+    const run = () => {
+
+      // stolen from https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
+      const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+      }
+
+      const sentenceReplacements = () => {
+        const replacements = [
+          "Move fast and make friends",
+          "Moving faster and faster and faster",
+          "Move fast, get tired, and then move slow",
+          "More forests and bigger trees",
+          "Make friends and break things",
+          "Move with care and still break things sometimes",
+          "Moving at a speed that feels right for you in this moment",
+          "Move out of SF and break things somewhere else",
+          "Move fast and form a union before your company hits growth stage",
+        ];
+        shuffleArray(replacements);
+        let replacementsIndex = 0;
+        const replacementClickHandler = function (element, event) {
+          document.getElementById("move-fast").textContent =
+            replacements[replacementsIndex];
+          // update for next time
+          replacementsIndex++;
+          if (replacementsIndex > replacements.length - 1) {
+            shuffleArray(replacements)
+            replacementsIndex = 0
+          }
+        };
+        document
+          .getElementById("move-fast")
+          .addEventListener("click", replacementClickHandler);
+      }
+
+      sentenceReplacements();
+    }
+
+    run();
+  </script>
+</body>
